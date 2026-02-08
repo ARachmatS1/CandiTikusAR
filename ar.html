@@ -2,19 +2,17 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AR Candi Tikus - Debug Mode</title>
+    <title>AR Candi Tikus - Final Adjustment</title>
 
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://quadjg.github.io/aframe-gaussian-splatting/index.js"></script>
 
     <style>
-        /* CSS Loading Screen */
         #loading-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 9999;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; font-family: sans-serif; text-align: center;
         }
         .hidden { display: none !important; }
@@ -23,8 +21,8 @@
 
 <body>
     <div id="loading-overlay">
-        <h2>Menyiapkan Kamera...</h2>
-        <p>Sedang memuat data 3D (64 MB)...<br>Mohon bersabar.</p>
+        <h2>Loading Candi Tikus...</h2>
+        <p>Sedang mencoba 3 ukuran sekaligus.<br>Tunggu sebentar...</p>
     </div>
 
     <a-scene 
@@ -35,41 +33,41 @@
         device-orientation-permission-ui="enabled: false">
         
         <a-assets></a-assets>
-
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex: 0" id="target-entity">
             
-            <a-box color="red" position="0 0 0.5" scale="0.2 0.2 0.2" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000"></a-box>
-
             <a-entity 
-                id="candi-model"
                 gaussian_splatting="src: ./assets/Candi_Tikus_GS_2.splat;" 
                 rotation="-90 0 0" 
-                position="0 0 0" 
+                position="-1 0 0" 
                 scale="0.1 0.1 0.1">
             </a-entity>
 
+            <a-entity 
+                gaussian_splatting="src: ./assets/Candi_Tikus_GS_2.splat;" 
+                rotation="-90 0 0" 
+                position="0 0 0" 
+                scale="1 1 1">
             </a-entity>
+
+            <a-entity 
+                gaussian_splatting="src: ./assets/Candi_Tikus_GS_2.splat;" 
+                rotation="-90 0 0" 
+                position="1 0 0" 
+                scale="5 5 5">
+            </a-entity>
+
+        </a-entity>
     </a-scene>
 
     <script>
         const scene = document.querySelector('a-scene');
         const overlay = document.querySelector('#loading-overlay');
 
-        // Hilangkan loading saat kamera siap
         scene.addEventListener('arReady', () => {
-            console.log("Kamera AR Siap. Silakan scan marker.");
+            console.log("Kamera Siap");
             overlay.classList.add('hidden');
-        });
-        
-        // Logika tambahan untuk memastikan target terbaca
-        const target = document.querySelector('#target-entity');
-        target.addEventListener("targetFound", event => {
-            console.log("Marker ditemukan!");
-        });
-        target.addEventListener("targetLost", event => {
-            console.log("Marker hilang.");
         });
     </script>
 </body>
