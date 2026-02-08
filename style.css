@@ -1,0 +1,52 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 { margin-bottom: 5px; color: #d35400; }
+.subtitle { color: #7f8c8d; margin-top: 0; margin-bottom: 20px; }
+
+.hero-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.content {
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn-ar {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #d35400; /* Warna Bata Majapahit */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
+}
+
+.btn-ar:active { transform: scale(0.98); }
+
+footer { margin-top: 50px; color: #aaa; }
