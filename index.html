@@ -3,199 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualisasi AR Candi Tikus | Geomatika ITS</title>
+    <title>WebGIS AR | Candi Tikus Mojokerto</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- GLOBAL VARIABLES --- */
         :root {
-            --its-blue: #013880; /* Warna Khas ITS */
+            --its-blue: #013880;
             --its-light: #00b4d8;
-            --accent: #f4a261;
-            --bg-color: #f0f4f8;
+            --gold-majapahit: #f5b041;
+            --dark-bg: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--its-blue) 0%, #001f4d 100%);
-            margin: 0;
-            padding: 0;
-            color: #333;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(1, 56, 128, 0.4), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(245, 176, 65, 0.15), transparent 25%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
         }
 
-        /* Kartu Utama (Glassmorphism) */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            width: 90%;
-            max-width: 450px;
+        /* --- NAVBAR --- */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i { color: var(--its-light); }
+        .nav-badge {
+            background: rgba(1, 56, 128, 0.6);
+            padding: 8px 15px;
             border-radius: 20px;
-            padding: 30px;
+            font-size: 0.8rem;
+            border: 1px solid var(--its-light);
+        }
+
+        /* --- HERO SECTION (Grid Layout) --- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 40px 5%;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Text Content */
+        .hero-text {
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            margin: 20px 0;
+            animation: fadeUp 1s ease-out;
+        }
+        
+        .tagline {
+            color: var(--gold-majapahit);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--its-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Technology Pills */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .tech-pill {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+        .tech-pill i { color: var(--gold-majapahit); }
+
+        /* Action Button */
+        .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--its-blue), #0056b3);
+            color: white;
+            text-decoration: none;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(1, 56, 128, 0.5);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
+        .btn-start:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.4);
+        }
+        .btn-start i { font-size: 1.2rem; }
 
-        /* Hiasan Atas */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 6px;
-            background: linear-gradient(to right, var(--its-blue), var(--its-light));
-        }
-
-        /* Logo / Header */
-        .logo-area {
-            margin-bottom: 20px;
-        }
-        .logo-text {
-            font-weight: 700;
-            color: var(--its-blue);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Judul */
-        h1 {
-            font-size: 1.8rem;
-            margin: 10px 0 5px 0;
-            color: #222;
-        }
-        .subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 25px;
-            font-weight: 300;
-        }
-
-        /* Gambar Preview */
-        .preview-img {
+        /* Hero Visual (Image/3D Mockup) */
+        .hero-visual {
             width: 100%;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            max-width: 450px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
         }
-        .preview-img:hover {
-            transform: scale(1.02);
+        
+        /* Frame gambar bergaya kaca */
+        .image-frame {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
         }
-
-        /* Badges Teknologi */
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        .badge {
-            background: #eef2f7;
-            color: var(--its-blue);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid #d1d9e6;
-        }
-
-        /* Tombol AR */
-        .btn-ar {
-            background: linear-gradient(to right, var(--its-blue), #0056b3);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            width: 80%;
-            box-shadow: 0 5px 15px rgba(1, 56, 128, 0.4);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-ar:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(1, 56, 128, 0.6);
-        }
-        .btn-ar i { margin-right: 8px; }
-
-        /* Profil Pembuat */
-        .profile-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: left;
-        }
-        .profile-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #888;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+        .image-frame img {
+            width: 100%;
+            border-radius: 15px;
             display: block;
         }
-        .student-name {
-            font-weight: 700;
-            color: var(--its-blue);
-            margin: 0;
-            font-size: 1rem;
+
+        /* --- FOOTER / PROFILE --- */
+        .author-card {
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid var(--glass-border);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+            backdrop-filter: blur(10px);
         }
-        .student-info {
-            font-size: 0.85rem;
-            color: #555;
-            margin: 2px 0;
+        .author-info h4 { color: #fff; font-size: 1rem; margin-bottom: 2px; }
+        .author-info p { color: var(--its-light); font-size: 0.85rem; }
+        .author-info span { color: #888; font-size: 0.75rem; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
-        .its-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #333;
-            margin-top: 5px;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- RESPONSIVE DESKTOP (Layar Besar) --- */
+        @media (min-width: 992px) {
+            .hero {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .hero-text {
+                text-align: left;
+                flex: 1;
+            }
+            .description {
+                margin-left: 0;
+            }
+            .tech-stack {
+                justify-content: flex-start;
+            }
+            h1 { font-size: 3.8rem; }
+            .hero-visual {
+                flex: 1;
+                max-width: 500px;
+            }
+            .author-card {
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="logo-area">
-            <span class="logo-text"><i class="fas fa-cube"></i> WebGIS 3D</span>
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-layer-group"></i> GeoAR
+        </div>
+        <div class="nav-badge">
+            <i class="fa-solid fa-location-dot"></i> Mojokerto
+        </div>
+    </nav>
+
+    <main class="hero">
+        
+        <div class="hero-text">
+            <span class="tagline">Situs Warisan Budaya</span>
+            <h1>Candi Tikus<br>Dalam Dimensi 3D</h1>
+            
+            <p class="description">
+                Eksplorasi mahakarya arsitektur petirtaan era Majapahit secara imersif. 
+                Sistem WebGIS ini memproyeksikan data spasial beresolusi tinggi langsung ke dunia nyata melalui kamera perangkat Anda.
+            </p>
+
+            <div class="tech-stack">
+                <span class="tech-pill"><i class="fa-solid fa-microchip"></i> Gaussian Splatting</span>
+                <span class="tech-pill"><i class="fa-brands fa-js"></i> WebAR & A-Frame</span>
+                <span class="tech-pill"><i class="fa-solid fa-satellite"></i> WebGIS</span>
+            </div>
+
+            <a href="ar.html" class="btn-start">
+                <i class="fa-solid fa-expand"></i> Pindai AR Sekarang
+            </a>
         </div>
 
-        <h1>Candi Tikus AR</h1>
-        <p class="subtitle">Visualisasi 3D Interaktif Berbasis Web</p>
-
-        <div class="badges">
-            <span class="badge">Gaussian Splatting</span>
-            <span class="badge">WebAR</span>
-            <span class="badge">A-Frame</span>
+        <div class="hero-visual">
+            <div class="image-frame">
+                <img src="assets/foto-intro.jpg" alt="Preview 3D Candi Tikus">
+            </div>
         </div>
 
-        <img src="assets/foto-intro.jpg" alt="Preview Candi Tikus" class="preview-img">
+    </main>
 
-        <p style="font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 25px;">
-            Aplikasi ini memvisualisasikan situs warisan budaya Candi Tikus (Trowulan) menggunakan teknologi 
-            <em>Gaussian Splatting</em> untuk detail yang realistis.
-        </p>
-
-        <a href="ar.html" class="btn-ar">
-            <i class="fas fa-camera"></i> Mulai Scan AR
-        </a>
-
-        <div class="profile-section">
-            <span class="profile-label">Dikembangkan Oleh:</span>
-            <h3 class="student-name">Rachmat</h3>
-            <p class="student-info">Teknik Geomatika (2022)</p>
-            <p class="its-label">Institut Teknologi Sepuluh Nopember</p>
+    <footer class="author-card">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa-solid fa-user-graduate" style="font-size: 2rem; color: var(--its-light);"></i>
+            <div class="author-info" style="text-align: left;">
+                <h4>Rachmat</h4>
+                <p>Teknik Geomatika (Angkatan 2022)</p>
+                <span>Institut Teknologi Sepuluh Nopember (ITS)</span>
+            </div>
         </div>
-    </div>
+        <div style="opacity: 0.5;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Logo_ITS.png" alt="Logo ITS" height="40" onerror="this.style.display='none'">
+        </div>
+    </footer>
 
 </body>
 </html>
